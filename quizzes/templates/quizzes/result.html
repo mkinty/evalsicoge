@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+{% block title %}
+home
+{% endblock title %}
+
+{% block content %}
+    <div class="table-responsive">
+      <table>
+        <thead class="table-header">
+        <tr>
+          <th>Formation</th>
+          <th>Réalisation</th>
+          <th>Date début</th>
+          <th>Date fin</th>
+          <th>Lieu</th>
+          <th>Formateur(s)</th>
+          <th>Stagiaire</th>
+          <th>Evaluation</th>
+          <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+        <tr>
+          <td>{{ result.stage_name }}</td>
+          <td>{{ result.stage }}</td>
+          <td>
+            {% language 'fr' %}
+            {{ result.start_date | date:'d-m-y'}}
+            {% endlanguage %}
+          </td>
+          <td>
+            {% language 'fr' %}
+            {{ result.end_date | date:'d-m-y'}}
+            {% endlanguage %}
+          </td>
+          <td>{{ result.place }}</td>
+          <td>{{ result.teacher }}</td>
+          {% if result.name %}
+          <td>{{ result.name }}</td>
+          {% else %}
+          <td>--</td>
+          {% endif %}
+          <td>
+            <a href="{% url 'quizzes:eval-view' result.id %}">
+              <button class="export">Export pdf</button>
+            </a>
+          </td>
+          <td>
+          
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endblock content %}

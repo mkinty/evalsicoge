@@ -1,0 +1,1 @@
+/Users/moustaphakinty/KmyProd/evalsicoge/env/bin/python /Users/moustaphakinty/KmyProd/evalsicoge/src/manage.py runserver

@@ -1,0 +1,442 @@
+{% extends "base.html" %}
+{% load materializecss %}
+{% load static %}
+{% block css %}
+<!-- materialize  -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css"
+      integrity="sha256-qj3p6P1fJIV+Ndv7RW1ovZI2UhOuboj9GcODzcNFIN8=" crossorigin="anonymous"/>
+{% endblock css %}
+{% block scripts %}
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/cc8e0d1931.js" crossorigin="anonymous"></script>
+<!-- custom js-->
+<script src="{% static 'js/quizzes.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block title %}
+{{obj.name}}
+{% endblock title %}
+
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="evalQuiz">
+    <h3>Evaluation de satisfaction</h3>
+    <a href="https://www.sicoge.com/" target="_blank">
+      <div class="image">
+        <img src="{% static './icons/logo.jpg' %}" alt="">
+      </div>
+    </a>
+  </div>
+  <div class="stageOption active visible">
+    <div class="option choice form-card">
+      <span class="stage-title">Stage réalisé en </span>
+      {{form.stage}}
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="stage active">
+    <div class=" form-card">
+      <div class="text">
+        <span class="text-title">Intitulé de la formation </span>
+        {{form.stage_name}}
+      </div>
+      <div class="dates">
+        <div class="row text date">
+          <span class="text-title">Date debut formation</span>
+          {{ form.start_date|materializecss:'s12, icon=date_range' }}
+        </div>
+        <div class="row text date">
+          <span class="text-title">Date fin formation</span>
+          {{ form.end_date|materializecss:'s12, icon=date_range' }}
+        </div>
+      </div>
+      <div class="text">
+        <span class="text-title">Lieu de formation </span>
+        {{form.place}}
+      </div>
+      <div class="text">
+        <span class="text-title">Formateur(s) </span>
+        {{form.teacher}}
+      </div>
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="organization active">
+    <div class="evaluation-icons">
+      <span>Merci de cocher la case correspondante</span>
+      <span><i class="far fa-frown"></i> Pas du tout</span>
+      <span><i class="far fa-meh"></i> Oui plutôt</span>
+      <span><i class="far fa-smile"></i> Tout à fait</span>
+    </div>
+    <div class="org">
+      <div class="title title-header">
+        <span>1 – ORGANISATION </span>
+      </div>
+      <div class="eval">
+        <ul>
+          <li><i class="far fa-frown"></i><i>1</i></li>
+          <li><i class="far fa-meh"></i><i>2</i></li>
+          <li><i class="far fa-smile"></i><i>3</i></li>
+        </ul>
+      </div>
+      <div class="comment comment-header">
+        <span>Commentaires</span>
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Mon accès aux informations avant la formation (programme, objectifs, ...)</span>
+      </div>
+      <div class="eval choice">
+        {{form.organization1}}
+      </div>
+      <div class="comment">
+        {{form.org_comment1}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>L’accueil</span>
+      </div>
+      <div class="eval choice">
+        {{form.organization2}}
+      </div>
+      <div class="comment">
+        {{form.org_comment2}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>La logistique (salle, repas, horaires ...)</span>
+      </div>
+      <div class="eval choice">
+        {{form.organization3}}
+      </div>
+      <div class="comment">
+        {{form.org_comment3}}
+      </div>
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="formation active">
+    <div class="org">
+      <div class="title title-header">
+        <span>2 – LA FORMATION</span>
+      </div>
+      <div class="eval">
+        <ul>
+          <li><i class="far fa-frown"></i><i>1</i></li>
+          <li><i class="far fa-meh"></i><i>2</i></li>
+          <li><i class="far fa-smile"></i><i>3</i></li>
+        </ul>
+      </div>
+      <div class="comment comment-header">
+        <span>Commentaires</span>
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>La formation répond à mes préoccupations</span>
+      </div>
+      <div class="eval choice">
+        {{form.formation1}}
+      </div>
+      <div class="comment">
+        {{form.for_comment1}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Je me sens mieux préparé(e) pour l’exercice de mon mandat</span>
+      </div>
+      <div class="eval choice">
+        {{form.formation2}}
+      </div>
+      <div class="comment">
+        {{form.for_comment2}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Le contenu de la formation est pertinent et adapté</span>
+      </div>
+      <div class="eval choice">
+        {{form.formation3}}
+      </div>
+      <div class="comment">
+        {{form.for_comment3}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>La durée est adaptée</span>
+      </div>
+      <div class="eval choice">
+        {{form.formation4}}
+      </div>
+      <div class="comment">
+        {{form.for_comment4}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Il y avait une bonne ambiance au sein du groupe</span>
+      </div>
+      <div class="eval choice">
+        {{form.formation5}}
+      </div>
+      <div class="comment">
+        {{form.for_comment5}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Les supports pédagogiques utilisés sont de qualité</span>
+      </div>
+      <div class="eval choice">
+        {{form.formation6}}
+      </div>
+      <div class="comment">
+        {{form.for_comment6}}
+      </div>
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="teacher active">
+    <div class="org">
+      <div class="title title-header">
+        <span>3 – FORMATEUR(S)</span>
+      </div>
+      <div class="eval">
+        <ul>
+          <li><i class="far fa-frown"></i><i>1</i></li>
+          <li><i class="far fa-meh"></i><i>2</i></li>
+          <li><i class="far fa-smile"></i><i>3</i></li>
+        </ul>
+      </div>
+      <div class="comment comment-header">
+        <span>Commentaires</span>
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Connaissance du sujet</span>
+      </div>
+      <div class="eval choice">
+        {{form.teacher1}}
+      </div>
+      <div class="comment">
+        {{form.tea_comment1}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Adaptation aux participants</span>
+      </div>
+      <div class="eval choice">
+        {{form.teacher2}}
+      </div>
+      <div class="comment">
+        {{form.tea_comment2}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Approche pédagogique</span>
+      </div>
+      <div class="eval choice">
+        {{form.teacher3}}
+      </div>
+      <div class="comment">
+        {{form.tea_comment3}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Echanges avec le groupe</span>
+      </div>
+      <div class="eval choice">
+        {{form.teacher4}}
+      </div>
+      <div class="comment">
+        {{form.tea_comment4}}
+      </div>
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="appreciation active">
+    <div class="org">
+      <div class="title title-header">
+        <span>4 – APPRÉCIATION GÉNÉRALE</span>
+      </div>
+      <div class="eval">
+        <ul>
+          <li><i class="far fa-frown"></i><i>1</i></li>
+          <li><i class="far fa-meh"></i><i>2</i></li>
+          <li><i class="far fa-smile"></i><i>3</i></li>
+        </ul>
+      </div>
+      <div class="comment comment-header">
+        <span>Commentaires</span>
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Utilité de la formation</span>
+      </div>
+      <div class="eval choice">
+        {{form.appreciation1}}
+      </div>
+      <div class="comment">
+        {{form.ap_comment1}}
+      </div>
+    </div>
+    <div class="org">
+      <div class="title">
+        <span>Satisfaction globale</span>
+      </div>
+      <div class="eval choice">
+        {{form.appreciation2}}
+      </div>
+      <div class="comment">
+        {{form.ap_comment2}}
+      </div>
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="recommendation active">
+    <div class="option choice org">
+      <span class="stage-title">Recommanderiez-vous cette formation ? </span>
+      {{form.recommendation1}}
+    </div>
+    <div class="org rec">
+      <span>Pensez-vous pouvoir le recommander à d'autres personnes de votre entourage ? Lesquelles ? </span>
+      {{form.recommendation2}}
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="otherFormation active">
+    <div class="option choice org">
+      <span class="stage-title">D’autres besoins de formation existent-ils ? </span>
+      {{form.other_formation1}}
+    </div>
+    <div class="org choice rec">
+      {{form.other_formation2}}
+      {{form.other_formation_comment}}
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="otherFormationType active">
+    <div class="option choice org">
+      <span class="stage-title">D’autres besoins de formation existent-ils ? </span>
+      {{form.other_formation_type1}}
+    </div>
+    <div class="org choice rec">
+      {{form.other_formation_type2}}
+      {{form.other_formation_type_comment}}
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="participant active">
+    <div class="part-title">
+      <span class="stage-title">PARTICIPANT</span>
+      <span>(Informations non transmises à l’employeur ou à des tiers)</span>
+    </div>
+    <div class="form-card">
+      <div class="text">
+        <span class="text-title">Nom prénom </span>
+        {{form.name}}
+      </div>
+      <div class="text">
+        <span class="text-title">Fonction au sein du CSE, Mandat </span>
+        {{form.function}}
+      </div>
+      <div class="text">
+        <span class="text-title">N° de téléphone </span>
+        {{form.phone}}
+      </div>
+      <div class="text">
+        <span class="text-title">Adresse e-mail </span>
+        {{form.email}}
+      </div>
+      <div class="text">
+        <span class="text-title">Nom de l’entreprise </span>
+        {{form.company}}
+      </div>
+      <div class="text">
+        <span class="text-title">Secteur d’activité de l’Entreprise </span>
+        {{form.company_activity}}
+      </div>
+      <div class="text">
+        <span class="text-title">Effectif total de l’entreprise </span>
+        {{form.total_company}}
+      </div>
+      <div class="text">
+        <span class="text-title">Effectif de l’établissement</span>
+        {{form.total_establishment}}
+      </div>
+      <div class="row text date">
+        <span class="text-title">Date des prochaines élections</span>
+        {{ form.election_date|materializecss:'s12, icon=date_range' }}
+      </div>
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="find active" id="find">
+    <div class="choice org">
+      <span class="stage-title">Comment avez-vous connu ce stage </span>
+    </div>
+    <div class="org choice rec">
+      {{form.find}}
+      {{form.find_comment}}
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <span class="next export">Suivant</span>
+    </div>
+  </div>
+  <div class="active">
+    <div>
+      <span>Merci de confirner l'évaluation</span>
+    </div>
+    <div class="formBtn">
+      <span class="back export">Précedent</span>
+      <button class="confirm-btn confirm export next" type="submit">Envoyer</button>
+    </div>
+  </div>
+
+</form>
+{{form.errors}}
+{% endblock content %}

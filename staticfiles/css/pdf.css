@@ -1,0 +1,161 @@
+/*---VARIABLES --- */
+:root {
+  --logo: #ec6e07;
+  --name: #bd03ab;
+  --blue: #c8dbe3;
+  --primary: #26a69a;
+  --secondary: #447189;
+  --black: #000;
+}
+
+/*--- RESET ---*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/*--- GENERAL ----*/
+:root {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.2rem !important;
+  font-family: var(--font-play);
+  color: var(--text);
+}
+
+
+/*------- PAGE ----- */
+@page {
+  size: A4 portrait;
+  margin: 1.5cm 1.5cm;
+  @top {
+        content: element(pageHeader);
+    }
+
+}
+
+@media print {
+  header {
+    height: auto;
+    display: flex;
+    flex-flow: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    /*align-items: center;*/
+  }
+}
+
+.image img {
+  width: 100%;
+}
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  margin-top: 1rem !important;
+}
+
+i img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.evaluation-icons span{
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+}
+.evaluation-icons span i {
+  color: black !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+}
+
+.eval i {
+  color: black !important;
+  font-size: 2rem !important;
+}
+
+.evaluation-icons,
+.organization,
+.formation,
+.teacher,
+.appreciation,
+.other_formation,
+.other_formation_type,
+.participant,
+.form-btn,
+.find {
+  margin: 3.5rem 0 !important;
+}
+
+.form-card,
+.option,
+.text,
+.org {
+  padding: 0.5rem !important;
+}
+
+.title-header {
+  font-size: 1.6rem !important;
+}
+
+.comment {
+  font-size: 1rem;
+}
+
+.stage-choice .choice {
+  padding: 0rem 0.5rem !important;
+  margin-right: 1rem !important;
+  border: 0.2rem solid;
+}
+
+.choice.ok {
+  background-color: var(--logo) !important;
+}
+
+.eval ul,
+.eval.choice{
+  display: flex;
+  justify-content: space-between !important;
+}
+.eval .choice {
+  padding: 0.5rem !important;
+  margin-right: 1rem !important;
+  border: 0.2rem solid;
+  border-radius: 50%;
+}
+.recom {
+  display: flex;
+  flex-direction: column !important;
+  border: 0.1rem solid;
+  border-radius: 0.3rem;
+  padding: 0.5rem !important;
+}
+
+.recom span {
+  margin: 0.2rem !important;
+}
+.logo {
+  font-weight: 600;
+  border-bottom: 0.1rem solid;
+  border-color:  var(--logo)!important;
+}
+.right, .logo {
+  color: var(--logo);
+}
+.right-1 {
+  font-size: 1.3rem !important;
+}
+
+.stage-title {
+  font-size: 1.6rem !important;
+}
+
+.title {
+  color: var(--black) !important;
+}

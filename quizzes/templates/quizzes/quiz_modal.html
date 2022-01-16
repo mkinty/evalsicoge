@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+<script src="{% static 'js/main.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block title %}
+home
+{% endblock title %}
+
+{% block content %}
+<!-- Modal -->
+<div class="modal fade" id="evaluationStartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Commencer l'évaluation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body-confirm"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+        <button type="button" id="start-button" class="btn btn-success">Oui</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row mb-3">
+  <div class="h1">Evaluation de satisfaction :</div>
+  <div class="col text-right"><a href="{% url 'quizzes:eval-view'%}" class="btn btn-danger">+</a></div>
+</div>
+<hr>
+{% for obj in page_obj %}
+<!-- Button trigger modal -->
+<button class="btn btn-link modal-button"
+        data-pk="{{obj.pk}}"
+        data-evaluation="{{obj.name}}"
+        data-questions="{{obj.number_of_questions}}"
+        data-toggle="modal"
+        data-target="#evaluationStartModal"
+>
+  {{obj}}
+</button>
+<br>
+{% endfor %}
+{% endblock content %}

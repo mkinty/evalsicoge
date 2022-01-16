@@ -1,0 +1,14 @@
+<form method="POST" action="{% url 'quizzes:delete-quiz' quiz.pk %}">
+  {% csrf_token %}
+  <div class="modal-header card-header">
+    <h2 class="modal-title">Suppression d'une evaluation de satisfaction</h2>
+    <button type="button" class="add" data-bs-dismiss="modal" ><span class="las la-times"></span></button>
+  </div>
+  <div class="modal-body">
+    <span>Êtes vous sûr de vouloir supprimer cette évaluation ? </span>
+  </div>
+  <div class="modal-footer form-btn modal-delete">
+    <button type="button" class="cancel-btn" data-bs-dismiss="modal">Annuler</button>
+    <button class="confirm-btn" type="submit" name="Confirm">Supprimer</button>
+  </div>
+</form>
