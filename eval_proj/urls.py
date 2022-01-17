@@ -23,5 +23,5 @@ urlpatterns = [
     # path('evaluations/', include('evaluations.urls', namespace='evaluations')),
     path('', include('quizzes.urls', namespace='quizzes')),
 ]
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

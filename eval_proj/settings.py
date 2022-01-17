@@ -127,8 +127,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    BASE_DIR / 'evaluations' / 'static',
-    BASE_DIR / 'quizzes' / 'static',
 ]
 
 MEDIA_URL = 'media/'
