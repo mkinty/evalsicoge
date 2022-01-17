@@ -37,9 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #
     # apps
-    'questions',
-    'evaluations',
-    'results',
     'quizzes',
     'materializecssform',
 ]
