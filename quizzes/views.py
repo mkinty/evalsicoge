@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Quiz
 from .forms import QuizForm
-from quizzes.utils import generate_pdf
+# from quizzes.utils import generate_pdf
 
 
 # Create your views here.
@@ -59,4 +59,5 @@ def eval_view(request, pk):
     }
     template_path = 'quizzes/eval.html'
     pdf_name = 'Evaluation'
-    return generate_pdf(request, template_path, pdf_name, context)
+    return render(request, template_path, context)
+    # return generate_pdf(request, template_path, pdf_name, context)
