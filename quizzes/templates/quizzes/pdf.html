@@ -1,0 +1,879 @@
+<!doctype html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'styles.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/pdf.css' %}"/>
+    <title>pdf test</title>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/cc8e0d1931.js" crossorigin="anonymous"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+<header>
+    <div class="left">
+        <h3>SICOGE</h3>
+        <span>5 RUE DE PROVENCE</span>
+        <span>75009 PARIS</span>
+    </div>
+    <div class="image">
+        <img src="static/icons/logo.jpg" alt="">
+        <span class="logo">www.sicoge.com</span>
+    </div>
+    <div class="right">
+        <span class="right-1">Téléphone : 01 56 23 06 03</span>
+        <span class="right-1">info@sicoge.com</span>
+        <small>RCS PARIS B 662012673</small>
+        <small>N° SIRET : 66201267300031</small>
+        <small>Code NAF : 7022Z</small>
+        <small>TVA n° : FR 85662012673</small>
+    </div>
+</header>
+<div class="main-content">
+    <div class="option">
+        <span class="stage-title">Evaluation de satisfaction</span>
+        {% if eval.stage == 'Présentiel' %}
+        <div class="stage-choice">
+            <span>{{eval.stage}}</span>
+            <span class="choice ok"></span>
+            <span> / </span>
+            <span>Visio</span>
+            <span class="choice"></span>
+        </div>
+        {% elif eval.stage == 'Visio' %}
+        <div class="stage-choice">
+            <span>Présentiel</span>
+            <span class="choice"></span>
+            <span> / </span>
+            <span>{{eval.stage}}</span>
+            <span class="choice ok"></span>
+        </div>
+        {% else %}
+        <div class="stage-choice">
+            <span>Présentiel</span>
+            <span class="choice"></span>
+            <span> / </span>
+            <span>Visio</span>
+            <span class="choice"></span>
+        </div>
+        {% endif %}
+    </div>
+    <div class="form-card">
+        <div class="text">
+            <span class="text-title">Intitulé de la formation: </span>
+            {% if eval.stage_name %}
+            <span>{{ eval.stage_name }}</span>
+            {% endif %}
+        </div>
+        <div class="dates">
+            <div class="row text date">
+                <span class="text-title">Date début formation: </span>
+                {% if eval.start_date %}
+                <span>{% language 'fr' %} {{ eval.start_date | date:'d F Y'}}{% endlanguage %}</span>
+                {% endif %}
+            </div>
+            <div class="row text date">
+                <span class="text-title">Date fin formation: </span>
+                {% if eval.end_date %}
+                <span>{% language 'fr' %} {{ eval.end_date | date:'d F Y'}} {% endlanguage %}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="text">
+            <span class="text-title">Lieu de formation: </span>
+            {% if eval.place %}
+            <span>{{ eval.place }}</span>
+            {% endif %}
+        </div>
+        <div class="text">
+            <span class="text-title">Formateur(s): </span>
+            {% if eval.teacher %}
+            <span>{{ eval.teacher }}</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="evaluation-icons">
+        <span>Merci de cocher la case correspondante</span>
+        <span><i class="far fa-frown"></i> Pas du tout</span>
+        <span><i class="far fa-meh"></i> Oui plutôt</span>
+        <span><i class="far fa-smile"></i> Tout à fait</span>
+    </div>
+    <div class="organization">
+        <div class="org">
+            <div class="title title-header">
+                <span>1 – ORGANISATION </span>
+            </div>
+            <div class="eval">
+                <ul>
+                    <li><i><img src="{% static './icons/frown-regular.svg' %}" alt="frown-regular"></i><i>1</i></li>
+                    <li><i><img src="{% static './icons/meh-regular.svg' %}" alt="meh-regular"></i><i>2</i></li>
+                    <li><i><img src="{% static './icons/smile-regular.svg' %}" alt="smile-regular"></i><i>3</i></li>
+                </ul>
+            </div>
+            <div class="comment comment-header">
+                <span>Commentaires</span>
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Mon accès aux informations avant la formation (programme, objectifs, ...)</span>
+            </div>
+            {% if eval.organization1 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.organization1 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.organization1 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.org_comment1 %}
+                <span>{{eval.org_comment1}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>L’accueil</span>
+            </div>
+            {% if eval.organization2 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.organization2 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.organization2 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.org_comment2 %}
+                <span>{{eval.org_comment2}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>La logistique (salle, repas, horaires ...)</span>
+            </div>
+            {% if eval.organization3 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.organization3 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.organization3 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.org_comment3 %}
+                <span>{{eval.org_comment3}}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="formation">
+        <div class="org">
+            <div class="title title-header">
+                <span>2 – LA FORMATION</span>
+            </div>
+            <div class="eval">
+                <ul>
+                    <li><i><img src="{% static './icons/frown-regular.svg' %}" alt="frown-regular"></i><i>1</i></li>
+                    <li><i><img src="{% static './icons/meh-regular.svg' %}" alt="meh-regular"></i><i>2</i></li>
+                    <li><i><img src="{% static './icons/smile-regular.svg' %}" alt="smile-regular"></i><i>3</i></li>
+                </ul>
+            </div>
+            <div class="comment comment-header">
+                <span>Commentaires</span>
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>La formation répond à mes préoccupations</span>
+            </div>
+            {% if eval.formation1 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation1 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation1 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.for_comment1 %}
+                <span>{{eval.for_comment1}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Je me sens mieux préparé(e) pour l’exercice de mon mandat</span>
+            </div>
+            {% if eval.formation2 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation2 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation2 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.for_comment2 %}
+                <span>{{eval.for_comment2}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Le contenu de la formation est pertinent et adapté</span>
+            </div>
+            {% if eval.formation3 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation3 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation3 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.for_comment3 %}
+                <span>{{eval.for_comment3}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>La durée est adaptée</span>
+            </div>
+            {% if eval.formation4 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation4 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation4 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.for_comment4 %}
+                <span>{{eval.for_comment4}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Il y avait une bonne ambiance au sein du groupe</span>
+            </div>
+            {% if eval.formation5 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation5 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation5 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.for_comment5 %}
+                <span>{{eval.for_comment5}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Les supports pédagogiques utilisés sont de qualité</span>
+            </div>
+            {% if eval.formation6 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation6 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.formation6 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.for_comment6 %}
+                <span>{{eval.for_comment6}}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="teacher">
+        <div class="org">
+            <div class="title title-header">
+                <span>3 – FORMATEUR(S)</span>
+            </div>
+            <div class="eval">
+                <ul>
+                    <li><i><img src="{% static './icons/frown-regular.svg' %}" alt="frown-regular"></i><i>1</i></li>
+                    <li><i><img src="{% static './icons/meh-regular.svg' %}" alt="meh-regular"></i><i>2</i></li>
+                    <li><i><img src="{% static './icons/smile-regular.svg' %}" alt="smile-regular"></i><i>3</i></li>
+                </ul>
+            </div>
+            <div class="comment comment-header">
+                <span>Commentaires</span>
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Connaissance du sujet</span>
+            </div>
+            {% if eval.teacher1 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher1 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher1 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.tea_comment1 %}
+                <span>{{eval.tea_comment1}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Adaptation aux participants</span>
+            </div>
+            {% if eval.teacher2 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher2 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher2 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.tea_comment2 %}
+                <span>{{eval.tea_comment2}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Approche pédagogique</span>
+            </div>
+            {% if eval.teacher3 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher3 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher3 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.tea_comment3 %}
+                <span>{{eval.tea_comment3}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Echanges avec le groupe</span>
+            </div>
+            {% if eval.teacher4 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher4 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.teacher4 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.tea_comment4 %}
+                <span>{{eval.tea_comment4}}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="appreciation">
+        <div class="org">
+            <div class="title title-header">
+                <span>4 – APPRÉCIATION GÉNÉRALE</span>
+            </div>
+            <div class="eval">
+                <ul>
+                    <li><i><img src="{% static './icons/frown-regular.svg' %}" alt="frown-regular"></i><i>1</i></li>
+                    <li><i><img src="{% static './icons/meh-regular.svg' %}" alt="meh-regular"></i><i>2</i></li>
+                    <li><i><img src="{% static './icons/smile-regular.svg' %}" alt="smile-regular"></i><i>3</i></li>
+                </ul>
+            </div>
+            <div class="comment comment-header">
+                <span>Commentaires</span>
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Utilité de la formation</span>
+            </div>
+            {% if eval.appreciation1 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.appreciation1 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.appreciation1 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.ap_comment1 %}
+                <span>{{eval.ap_comment1}}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="org">
+            <div class="title">
+                <span>Satisfaction globale</span>
+            </div>
+            {% if eval.appreciation1 == '1' %}
+            <div class="eval choice">
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.appreciation1 == '2' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.appreciation1 == '3' %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span class="choice"></span>
+                <span class="choice"></span>
+                <span class="choice"></span>
+            </div>
+            {% endif %}
+            <div class="comment">
+                {% if eval.ap_comment2 %}
+                <span>{{eval.ap_comment2}}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="recommendation">
+        <div class="option choice org">
+            <span class="stage-title">Recommanderiez-vous cette formation ? </span>
+            {% if eval.recommendation1 == 'Oui' %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice ok"></span>
+                <span> Non</span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.recommendation1 == 'Non' %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice"></span>
+                <span> Non</span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice"></span>
+                <span> Non</span>
+                <span class="choice"> </span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="recom">
+            <span>Pensez-vous pouvoir le recommander à d'autres personnes de votre entourage ? Lesquelles ? </span>
+            <span>{{eval.recommendation2}}</span>
+        </div>
+    </div>
+    <div class="other_formation">
+        <div class="option choice org">
+            <span class="stage-title">D’autres besoins de formation existent-ils ? </span>
+            {% if eval.other_formation1 == 'Oui' %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice ok"></span>
+                <span> Non</span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.other_formation1 == 'Non' %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice"></span>
+                <span> Non</span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice"></span>
+                <span> Non</span>
+                <span class="choice"> </span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="org choice rec">
+            {% if eval.other_formation2 %}
+            <span>{{eval.other_formation2}}</span>
+            {% endif %}
+            {% if eval.other_formation_comment %}
+            <span>: {{eval.other_formation_comment}}</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="other_formation_type">
+        <div class="option choice org">
+            <span class="stage-title">D’autres besoins de formation existent-ils ? </span>
+            {% if eval.other_formation_type1 == 'Oui' %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice ok"></span>
+                <span> Non</span>
+                <span class="choice"></span>
+            </div>
+            {% elif eval.other_formation_type1 == 'Non' %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice"></span>
+                <span> Non</span>
+                <span class="choice ok"></span>
+            </div>
+            {% else %}
+            <div class="eval choice">
+                <span>Oui</span>
+                <span class="choice"></span>
+                <span> Non</span>
+                <span class="choice"> </span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="org choice rec">
+            {% if eval.other_formation_type2 %}
+            <span>{{eval.other_formation_type2}}</span>
+            {% endif %}
+            {% if eval.other_formation_type_comment %}
+            <span>: {{eval.other_formation_type_comment}}</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="participant">
+        <div class="part-title">
+            <span class="stage-title">PARTICIPANT</span>
+            <span>(Informations non transmises à l’employeur ou à des tiers)</span>
+        </div>
+        <div class="form-card">
+            <div class="text">
+                <span class="text-title">Nom prénom: </span>
+                {% if eval.name %}
+                <span>{{eval.name}}</span>
+                {% endif %}
+            </div>
+            <div class="text">
+                <span class="text-title">Fonction au sein du CSE, Mandat: </span>
+                {% if eval.function %}
+                <span>{{eval.function}}</span>
+                {% endif %}
+            </div>
+            <div class="text">
+                <span class="text-title">N° de téléphone: </span>
+                {% if eval.phone %}
+                <span>{{eval.phone}}</span>
+                {% endif %}
+            </div>
+            <div class="text">
+                <span class="text-title">Adresse e-mail: </span>
+                {% if eval.email %}
+                <span>{{eval.email}}</span>
+                {% endif %}
+            </div>
+            <div class="text">
+                <span class="text-title">Nom de l’entreprise: </span>
+                {% if eval.company %}
+                <span>{{eval.company}}</span>
+                {% endif %}
+            </div>
+            <div class="text">
+                <span class="text-title">Secteur d’activité de l’Entreprise: </span>
+                {% if eval.company_activity %}
+                <span>{{eval.company_activity}}</span>
+                {% endif %}
+            </div>
+            <div class="text">
+                <span class="text-title">Effectif total de l’entreprise: </span>
+                {% if eval.total_company %}
+                <span>{{eval.total_company}}</span>
+                {% endif %}
+            </div>
+            <div class="text">
+                <span class="text-title">Effectif de l’établissement: </span>
+                {% if eval.total_establishment %}
+                <span>{{eval.total_establishment}}</span>
+                {% endif %}
+            </div>
+            <div class="row text date">
+                <span class="text-title">Date des prochaines élections: </span>
+                {% if eval.election_date %}
+                <span>{% language 'fr' %}{{ eval.election_date | date:'d F Y'}}{% endlanguage %}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="find">
+        <div class="choice org">
+            <span class="stage-title">Comment avez-vous connu ce stage: </span>
+        </div>
+        <div class="org choice rec">
+            {% if eval.find %}
+            <span>{{eval.find}}</span>
+            {% endif %}
+            {% if eval.find_comment %}
+            <span>: {{eval.find_comment}}</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

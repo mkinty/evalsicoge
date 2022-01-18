@@ -3,6 +3,11 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Quiz
 from .forms import QuizForm
+
+# To generate PDF white xhtml2pdf
+# from django.http import HttpResponse
+# from django.template.loader import get_template
+# from xhtml2pdf import pisa
 # from quizzes.utils import generate_pdf
 
 
@@ -61,3 +66,25 @@ def eval_view(request, pk):
     pdf_name = 'Evaluation'
     return render(request, template_path, context)
     # return generate_pdf(request, template_path, pdf_name, context)
+
+
+# def render_pdf_view(request):
+#     template_path = 'quizzes/pdf.html'
+#     context = {'myvar': 'this is your template context'}
+#     # Create a Django response object, and specify content_type as pdf
+#     response = HttpResponse(content_type='application/pdf')
+#     # if download:
+#     # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+#     # if display:
+#     response['Content-Disposition'] = 'filename="report.pdf"'
+#     # find the template and render it.
+#     template = get_template(template_path)
+#     html = template.render(context)
+#
+#     # create a pdf
+#     pisa_status = pisa.CreatePDF(
+#        html, dest=response)
+#     # if error then show some funy view
+#     if pisa_status.err:
+#        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+#     return response
